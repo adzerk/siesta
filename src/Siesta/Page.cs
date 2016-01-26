@@ -38,7 +38,7 @@ namespace Siesta
 			PageSize = pageSize;
 			TotalItems = totalItems;
 			TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
-			Items = items.ToArray();
+			Items = items.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToArray();
 		}
 	}
 }
