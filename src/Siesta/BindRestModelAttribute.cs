@@ -6,17 +6,20 @@
 #region Using Directives
 using System;
 using System.Web.Mvc;
-using Microsoft.Practices.ServiceLocation;
 using Siesta.Framework;
+using log4net;
 #endregion
 
 namespace Siesta
 {
-	public class BindRestModelAttribute : CustomModelBinderAttribute
+    public class BindRestModelAttribute : CustomModelBinderAttribute
+    {
+	private ILog _logger = LogManager.GetLogger("Siesta.BindRestModelAttribute");
+    
+	public override IModelBinder GetBinder()
 	{
-		public override IModelBinder GetBinder()
-		{
-			return ServiceLocator.Current.GetInstance<RestModelBinder>();
-		}
+	    _logger.Debug("Entering GetBinder");
+	    return new RestModelBinder();
 	}
+    }
 }
