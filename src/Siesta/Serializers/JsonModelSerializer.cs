@@ -21,7 +21,7 @@ namespace Siesta.Serializers
 
 		public bool IsDefault
 		{
-			get { return false; }
+			get { return true; }
 		}
 
 		public JsonModelSerializer()

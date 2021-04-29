@@ -27,7 +27,7 @@ namespace Siesta.Serializers
 
 	public bool IsDefault
 	{
-	    get { return true; }
+	    get { return false; }
 	}
 
 	public string Serialize(object model, ModelFormatting formatting)
