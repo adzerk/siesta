@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Mvc;
 using log4net;
 using Siesta.Serializers;
+using Newtonsoft.Json;
 #endregion
 
 namespace Siesta.Framework
@@ -47,9 +48,16 @@ namespace Siesta.Framework
 		    }
 		    string decodedContent = decoded[0];
 		    _logger.DebugFormat("About to deserialize encoded JSON '{0}'", decodedContent);
-		    var result =_jsonSerializer.Deserialize(bindingContext.ModelType, decodedContent);
-		    _logger.DebugFormat("Deserialization successful to type {0}", result.GetType());
-		    return result;
+		    try
+		    {
+				var result =_jsonSerializer.Deserialize(bindingContext.ModelType, decodedContent);
+				_logger.DebugFormat("Deserialization successful to type {0}", result.GetType());
+				return result;
+		    }
+			catch (JsonException)
+	        {
+				throw new HttpException(400, "Request was not valid JSON.");
+			}
 		}
 		else {
 		    string contentType = GetRequestContentType(controllerContext);

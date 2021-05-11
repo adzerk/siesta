@@ -29,7 +29,6 @@ namespace Siesta
 
 	public ModelSerializationService()
 	{
-             // Hard code to JSON, since that's the only thing we need any more.
 	    var serializers = new IModelSerializer[]
 	    {
 		new Siesta.Serializers.JsonModelSerializer(),
