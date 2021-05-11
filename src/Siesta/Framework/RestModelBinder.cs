@@ -51,7 +51,11 @@ namespace Siesta.Framework
 		    try
 		    {
 				var result =_jsonSerializer.Deserialize(bindingContext.ModelType, decodedContent);
-				_logger.DebugFormat("Deserialization successful to type {0}", result.GetType());
+				if (result == null)
+				{
+					throw new HttpException(400, "JSON input deserialization failed.");
+				}
+				_logger.DebugFormat("Deserialization to type {0}", result == null ? "null" : result.GetType().ToString());
 				return result;
 		    }
 			catch (JsonException)
